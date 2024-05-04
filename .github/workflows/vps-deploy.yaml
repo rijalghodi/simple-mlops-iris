@@ -30,7 +30,6 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          cd ${{ vars.VPS_WORKDIR}}
           docker build -t iris-mlops .  # Build Docker image from the updated repository
 
       - name: Run Docker Container

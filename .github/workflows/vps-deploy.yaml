@@ -34,4 +34,4 @@ jobs:
 
       - name: Run Docker Container
         run: |
-          docker run -d --name iris-mlops -p 8080:80 iris-mlops  # Run Docker container from the built image
+          docker run -d --name iris-mlops -p 8000:80 iris-mlops

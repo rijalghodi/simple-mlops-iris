@@ -32,8 +32,8 @@ COPY --from=builder-base /app/ /app/
 WORKDIR /app
 COPY . /app
 
-# This app run in port 8001
-EXPOSE 8001
+# This app run in port 8000
+EXPOSE 8000
 
 # Entry point to our app
 ENTRYPOINT /usr/local/bin/uvicorn main:app --host 0.0.0.0 --port $PORT

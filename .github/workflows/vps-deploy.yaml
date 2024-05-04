@@ -15,7 +15,7 @@ jobs:
           echo ${{ vars.VPS_HOST }}
           echo ${{ vars.VPS_USERNAME }}
           echo ${{ vars.VPS_PASSWORD }}
-          echo ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Checkout Repository
         uses: actions/checkout@v4 # Check out the repository content
 

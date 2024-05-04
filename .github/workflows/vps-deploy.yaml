@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v2 # Check out the repository content
 
       - name: SSH and Copy Files to VPS
-        uses: appleboy/ssh-action@v2
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ vars.VPS_HOST }}
           username: ${{ vars.VPS_USERNAME }}

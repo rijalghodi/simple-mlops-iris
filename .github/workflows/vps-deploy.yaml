@@ -7,26 +7,27 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest # Use Ubuntu as the runner environment
+    runs-on: ubuntu-latest # Use Ubuntu as the runner varsironment
 
     steps:
       - name: Echo
         run: |
+          echo ${{ vars.VPS_HOST }}
           echo ${{ env.VPS_HOST }}
-          echo ${{ env.VPS_USERNAME }}
-          echo ${{ env.VPS_PASSWORD }}
+          echo ${{ vars.VPS_USERNAME }}
+          echo ${{ vars.VPS_PASSWORD }}
       - name: Checkout Repository
         uses: actions/checkout@v4 # Check out the repository content
 
       - name: SSH into VPS and Copy Files
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ env.VPS_HOST }} # Set your VPS host as a GitHub secret
-          username: ${{ env.VPS_USERNAME }} # Set your VPS username as a GitHub secret
-          password: ${{ env.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
+          host: ${{ vars.VPS_HOST }} # Set your VPS host as a GitHub secret
+          username: ${{ vars.VPS_USERNAME }} # Set your VPS username as a GitHub secret
+          password: ${{ vars.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
           script: |
             mkdir -p {{secret.WORKDIR}}  # Create a directory on VPS
-            scp -r ./* ${{ env.VPS_USERNAME }}@${{ env.VPS_HOST }}:${{ env.WORKDIR }}  # Copy repository files to VPS
+            scp -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.WORKDIR }}  # Copy repository files to VPS
 
       - name: Build Docker Image
         run: |

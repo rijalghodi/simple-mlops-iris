@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest # Use Ubuntu as the runner environment
 
     steps:
+      - name: Echo
+        run: |
+          echo ${{ env.VPS_HOST }}
+          echo ${{ env.VPS_USERNAME }}
+          echo ${{ env.VPS_PASSWORD }}
       - name: Checkout Repository
         uses: actions/checkout@v4 # Check out the repository content
 

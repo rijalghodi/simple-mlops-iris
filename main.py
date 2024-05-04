@@ -1,15 +1,13 @@
-from fastapi import FastAPI, __version__
+from fastapi import FastAPI, __version__, APIRouter, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
+from iris import IrisBatchRequest, IrisPredictor  # Assuming IrisBatchRequest and IrisPredictor are defined elsewhere
 
-from fastapi import APIRouter, Depends
-from iris import IrisBatchRequest
-from iris import IrisPredictor
-
+app = FastAPI()
 router = APIRouter(prefix="/iris", tags=["Iris"])
 iris_predictor = IrisPredictor()
 
-html = f"""
+html_content = f"""
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,20 +26,15 @@ html = f"""
 </html>
 """
 
-@router.get("/")
-async def root():
-    return HTMLResponse(html)
+@app.get("/")
+def read_root():
+    return HTMLResponse(content=html_content)
 
-@router.post(
-    "",
-    name="POST batch iris",
-)
+@router.post("/", name="POST batch iris")
 def iris_prediction(request: IrisBatchRequest):
     return iris_predictor.predict(features=request.features)
 
-
 def get_app() -> FastAPI:
-    app = FastAPI()
     app.include_router(router)
     app.add_middleware(
         CORSMiddleware,
@@ -50,8 +43,6 @@ def get_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
     return app
-
 
 app = get_app()

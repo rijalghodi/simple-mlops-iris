@@ -1,0 +1,33 @@
+name: VPS Deployment
+
+on:
+  push:
+    branches:
+      - main # Define the branch to trigger the workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use Ubuntu as the runner environment
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2 # Check out the repository content
+
+      - name: SSH into VPS and Copy Files
+        uses: appleboy/ssh-action@v2
+        with:
+          host: ${{ secrets.VPS_HOST }} # Set your VPS host as a GitHub secret
+          username: ${{ secrets.VPS_USERNAME }} # Set your VPS username as a GitHub secret
+          password: ${{ secrets.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
+          port: ${{ secrets.VPS_PORT }} # Set your SSH port as a GitHub secret
+          script: |
+            mkdir -p {{secret.WORKDIR}}  # Create a directory on VPS
+            scp -r ./* ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.WORKDIR }}  # Copy repository files to VPS
+
+      - name: Build Docker Image
+        run: |
+          docker build -t iris-mlops .  # Build Docker image from the copied files
+
+      - name: Run Docker Container
+        run: |
+          docker run -d --name iris-mlops -p 8080:80 iris-mlops  # Run Docker container from the built image

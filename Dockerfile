@@ -9,7 +9,7 @@ ENV ENV=staging \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     POETRY_VERSION=1.1.12 \
-    PORT=8001
+    PORT=8000
 
 FROM python-base as builder-base
 # Install gcc compiler since poetry depends on gcc

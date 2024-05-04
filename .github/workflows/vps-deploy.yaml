@@ -19,7 +19,6 @@ jobs:
           host: ${{ secrets.VPS_HOST }} # Set your VPS host as a GitHub secret
           username: ${{ secrets.VPS_USERNAME }} # Set your VPS username as a GitHub secret
           password: ${{ secrets.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
-          port: ${{ secrets.VPS_PORT }} # Set your SSH port as a GitHub secret
           script: |
             mkdir -p {{secret.WORKDIR}}  # Create a directory on VPS
             scp -r ./* ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_HOST }}:${{ secrets.WORKDIR }}  # Copy repository files to VPS

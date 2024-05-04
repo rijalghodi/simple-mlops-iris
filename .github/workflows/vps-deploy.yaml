@@ -24,7 +24,7 @@ jobs:
         with:
           host: ${{ vars.VPS_HOST }}
           username: ${{ vars.VPS_USERNAME }}
-          key: ${{ vars.SSH_PRIVATE_KEY }} # Use GitHub secret containing SSH private key
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Use GitHub secret containing SSH private key
           port: 22
           script: |
             mkdir -p ${{ vars.VPS_WORKDIR }}

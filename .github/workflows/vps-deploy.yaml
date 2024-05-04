@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2 # Check out the repository content
+        uses: actions/checkout@v4 # Check out the repository content
 
       - name: SSH into VPS and Copy Files
         uses: appleboy/ssh-action@v1.0.3

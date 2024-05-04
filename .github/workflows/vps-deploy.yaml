@@ -21,12 +21,12 @@ jobs:
       - name: SSH into VPS and Copy Files
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ vars.VPS_HOST }} # Set your VPS host as a GitHub secret
-          username: ${{ vars.VPS_USERNAME }} # Set your VPS username as a GitHub secret
-          password: ${{ vars.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
+          host: ${{ vars.VPS_HOST }}
+          username: ${{ vars.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Use GitHub secret containing SSH private key
           script: |
-            mkdir -p ${{vars.WORKDIR}}  # Create a directory on VPS
-            scp -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.WORKDIR }}  # Copy repository files to VPS
+            mkdir -p ${{ vars.VPS_WORKDIR }}
+            scp -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.VPS_WORKDIR }}
 
       - name: Build Docker Image
         run: |

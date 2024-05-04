@@ -25,7 +25,7 @@ jobs:
           username: ${{ vars.VPS_USERNAME }} # Set your VPS username as a GitHub secret
           password: ${{ vars.VPS_PASSWORD }} # Set your VPS password as a GitHub secret
           script: |
-            mkdir -p {{secret.WORKDIR}}  # Create a directory on VPS
+            mkdir -p {{vars.WORKDIR}}  # Create a directory on VPS
             scp -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.WORKDIR }}  # Copy repository files to VPS
 
       - name: Build Docker Image

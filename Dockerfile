@@ -9,7 +9,7 @@ ENV ENV=staging \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
     POETRY_VERSION=1.1.12 \
-    PORT=8000
+    PORT=8001
 
 FROM python-base as builder-base
 # Install gcc compiler since poetry depends on gcc
@@ -32,8 +32,8 @@ COPY --from=builder-base /app/ /app/
 WORKDIR /app
 COPY . /app
 
-# This app run in port 8000
-EXPOSE 8000
+# This app run in port 8001
+EXPOSE 8001
 
 # Entry point to our app
 ENTRYPOINT /usr/local/bin/uvicorn main:app --host 0.0.0.0 --port $PORT

@@ -27,7 +27,7 @@ jobs:
           port: 22
           script: |
             mkdir -p ${{ vars.VPS_WORKDIR }}
-            scp -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.VPS_WORKDIR }}
+            scp -o StrictHostKeyChecking=no -r ./* ${{ vars.VPS_USERNAME }}@${{ vars.VPS_HOST }}:${{ vars.VPS_WORKDIR }}
 
       - name: Build Docker Image
         run: |

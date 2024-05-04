@@ -28,10 +28,14 @@ jobs:
             git fetch origin
             git reset --hard origin/main  # Reset to the latest commit on 'main' branch
 
-      - name: Build Docker Image
-        run: |
-          docker build -t iris-mlops .  # Build Docker image from the updated repository
-
-      - name: Run Docker Container
-        run: |
-          docker run -d --name iris-mlops -p 8000:80 iris-mlops
+      - name: Build and Run Docker Images
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.VPS_HOST }}
+          username: ${{ vars.VPS_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }} # Use GitHub secret containing SSH private key
+          port: 22
+          script: |
+            cd ${{ vars.VPS_WORKDIR}}
+            docker build -t iris-mlops .  # Build Docker image from the updated repository
+            docker run -d --name iris-mlops -p 8000:80 iris-mlops

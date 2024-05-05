@@ -46,7 +46,7 @@ jobs:
             docker build -t iris-mlops .
 
             # Run Docker container with port mapping
-            docker run -d --name iris-mlops -p 8001:80 iris-mlops
+            docker run -d --name iris-mlops -p 8001:8001 iris-mlops
 
             # Clean up unused Docker images (optional, use with caution)
             docker image prune -f
